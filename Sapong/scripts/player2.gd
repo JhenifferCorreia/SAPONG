@@ -7,7 +7,7 @@ var health = 3
 
 func _ready():
 	win_height = get_viewport_rect().size.y
-	p_height = $Sprite2D.texture.get_height()
+	p_height = 60
 
 #Move player2 para cima e baixo
 func _physics_process(_delta):

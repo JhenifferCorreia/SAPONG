@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://djte3skq8bqsa"]
+[gd_scene load_steps=8 format=3 uid="uid://djte3skq8bqsa"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_156bh"]
 [ext_resource type="PackedScene" uid="uid://2adhtorudvx" path="res://scenes/ball.tscn" id="1_ioijv"]
 [ext_resource type="PackedScene" uid="uid://bs5v8mf33t4uw" path="res://scenes/player2.tscn" id="3_uqhnh"]
 [ext_resource type="PackedScene" uid="uid://dxwr3eiqor1wo" path="res://scenes/player1.tscn" id="4_4fwem"]
+[ext_resource type="Texture2D" uid="uid://danmkc666apxx" path="res://sprites/net-divider.svg" id="5_bfn25"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4aha"]
 size = Vector2(639.938, 30.0313)
@@ -13,38 +14,25 @@ size = Vector2(30.0313, 360)
 
 [node name="game" type="Control"]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -320.0
-offset_right = -320.0
-grow_horizontal = 2
-script = ExtResource("1_156bh")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 312.0
-offset_top = -8.0
-offset_right = 328.0
-offset_bottom = 376.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_156bh")
 
 [node name="Ball" parent="." instance=ExtResource("1_ioijv")]
 position = Vector2(320, 192)
 scale = Vector2(0.5, 0.5)
 
 [node name="Player2" parent="." instance=ExtResource("3_uqhnh")]
-position = Vector2(608, 192)
+position = Vector2(592, 192)
 disable_mode = 2
 
 [node name="Player1" parent="." instance=ExtResource("4_4fwem")]
-position = Vector2(40, 192)
+position = Vector2(48, 192)
 
 [node name="Borders" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -73,9 +61,22 @@ position = Vector2(-15.0156, 180)
 shape = SubResource("RectangleShape2D_njua0")
 metadata/_edit_lock_ = true
 
-[node name="BallTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 208.0
+offset_top = 176.0
+offset_right = 432.0
+offset_bottom = 208.0
+text = "Press 'R' to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(321.913, 180)
+scale = Vector2(0.653992, 0.653992)
+texture = ExtResource("5_bfn25")
 
 [connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]
 [connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
-[connection signal="timeout" from="BallTimer" to="." method="_on_timer_timeout"]

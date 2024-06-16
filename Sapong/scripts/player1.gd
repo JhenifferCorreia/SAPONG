@@ -7,11 +7,12 @@ var health = 3
 
 func _ready():
 	win_height = get_viewport_rect().size.y
-	p_height = $Sprite2D.texture.get_height()
+	p_height = 30
 
 #Move player1 para cima e baixo
 func _physics_process(_delta):
 	velocity.y = Input.get_axis("player1_up", "player1_down") * speed
+	$AnimatedSprite2D.play("walking")
 	move_and_slide()
 
 #Limita a movimentação do player ao tamanho da tela (esse número foi meio gambiarra por causa do tananho da sprite, pode dar merda dps)
