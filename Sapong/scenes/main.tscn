@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://djte3skq8bqsa"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_156bh"]
+[ext_resource type="PackedScene" uid="uid://2adhtorudvx" path="res://scenes/ball.tscn" id="1_ioijv"]
+[ext_resource type="PackedScene" uid="uid://bs5v8mf33t4uw" path="res://scenes/player2.tscn" id="3_uqhnh"]
+[ext_resource type="PackedScene" uid="uid://dxwr3eiqor1wo" path="res://scenes/player1.tscn" id="4_4fwem"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4aha"]
+size = Vector2(639.938, 30.0313)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_njua0"]
+size = Vector2(30.0313, 360)
+
+[node name="game" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = -320.0
+grow_horizontal = 2
+script = ExtResource("1_156bh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 312.0
+offset_top = -8.0
+offset_right = 328.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ball" parent="." instance=ExtResource("1_ioijv")]
+position = Vector2(320, 192)
+scale = Vector2(0.5, 0.5)
+
+[node name="Player2" parent="." instance=ExtResource("3_uqhnh")]
+position = Vector2(608, 192)
+disable_mode = 2
+
+[node name="Player1" parent="." instance=ExtResource("4_4fwem")]
+position = Vector2(40, 192)
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="Bottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(319.969, 374.969)
+shape = SubResource("RectangleShape2D_g4aha")
+metadata/_edit_lock_ = true
+
+[node name="Top" type="CollisionShape2D" parent="Borders"]
+position = Vector2(319.938, -15.0156)
+shape = SubResource("RectangleShape2D_g4aha")
+metadata/_edit_lock_ = true
+
+[node name="ScoreRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreRight"]
+position = Vector2(654.969, 180)
+shape = SubResource("RectangleShape2D_njua0")
+metadata/_edit_lock_ = true
+
+[node name="ScoreLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreLeft"]
+position = Vector2(-15.0156, 180)
+shape = SubResource("RectangleShape2D_njua0")
+metadata/_edit_lock_ = true
