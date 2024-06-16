@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://2adhtorudvx"]
+[gd_scene load_steps=4 format=3 uid="uid://2adhtorudvx"]
 
 [ext_resource type="Script" path="res://scripts/ball.gd" id="1_h7gm2"]
+[ext_resource type="Texture2D" uid="uid://kddxfwvbbpqp" path="res://icon.svg" id="2_8d2h1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0a152"]
 size = Vector2(32, 32)
@@ -10,18 +11,9 @@ collision_mask = 3
 script = ExtResource("1_h7gm2")
 metadata/_edit_group_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ColorRect" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_8d2h1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0a152")

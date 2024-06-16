@@ -72,3 +72,10 @@ metadata/_edit_lock_ = true
 position = Vector2(-15.0156, 180)
 shape = SubResource("RectangleShape2D_njua0")
 metadata/_edit_lock_ = true
+
+[node name="BallTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="body_entered" from="ScoreRight" to="." method="_on_score_right_body_entered"]
+[connection signal="body_entered" from="ScoreLeft" to="." method="_on_score_left_body_entered"]
+[connection signal="timeout" from="BallTimer" to="." method="_on_timer_timeout"]

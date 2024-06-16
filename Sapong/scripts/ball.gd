@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@onready var player1 = "res://scenes/player1.tscn"
-@onready var player2 = "res://scenes/player2.tscn"
+@onready var player1: PackedScene = preload("res://scenes/player1.tscn")
+@onready var player2: PackedScene = preload("res://scenes/player2.tscn")
 @onready var border = $"../Borders"
 
 var win_size: Vector2
@@ -10,6 +10,7 @@ const START_SPEED: int = 130
 const MAX_SPEED: int = 400
 var speed: int
 var acelleration: int = 8
+const MAX_Y_VECTOR: float = 0.6
 
 func _ready():
 	win_size = get_viewport_rect().size
@@ -26,22 +27,35 @@ func _physics_process(delta):
 	var collision = move_and_collide(dir * speed * delta)
 	var collider
 	if collision:
+		speed += acelleration
 		print(speed)
-		#Se a bola bater nos Sapos
+		#Se a bola atingir a velocidade máxima
+		if speed == MAX_SPEED:
+			acelleration = 0
 		collider = collision.get_collider()
-		if player1 or player2:
-			speed += acelleration
-			if speed == MAX_SPEED:
-				acelleration = 0
-			dir = dir.bounce(collision.get_normal())
+		#Se a bola bater nos Sapos
+		if collider == player1 or collider == player2:
+			dir = new_direction(collider)
 		#Se a bola bater nas bordas
 		else:
 			dir = dir.bounce(collision.get_normal())
 
 func random_direction():
-	var new_dir: Vector2
+	var new_dir := Vector2()
 	new_dir.x = [1,-1].pick_random()
 	new_dir.y = randf_range(-1,1)
 	return new_dir.normalized()
+
+func new_direction(collider):
+	var ball_y = position.y
+	var pad_y = collider.position.y
+	var dist = ball_y - pad_y
+	var new_dir := Vector2()
 	
-	# Estamos usando "R" e "F" para o player 1 para se locomover e mouse1 e mouse 2 para o player 2 se locomover.
+	#Muda a direção horizontal
+	if dir.x > 0:
+		new_dir.x = -1
+	else:
+		new_dir.x = 1
+	new_dir.y = (dist / (collider.p_height / 2)) * MAX_Y_VECTOR
+	return new_dir.normalized()
